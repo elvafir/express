@@ -1,0 +1,23 @@
+body
+{
+	font-family: "微软雅黑"
+}
+input#filedir
+{
+	width:320px;
+}
+
+a.btn-find
+{
+	display: inline-block;
+	width: 60px;
+	padding: 2px;
+	border:1px solid grey;
+	text-align: center;
+	border-radius: 5px;
+	text-decoration: none;
+}
+a.btn-find:hover
+{
+	cursor: pointer;
+}

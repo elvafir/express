@@ -1,0 +1,72 @@
+    <header class='container head'>
+        <h2 class="text-center">百度FEX前端--文件管理系统</h2>
+    </header>
+    <section class='container'>
+        <div class='row' style='clear:both'>
+            <form id='formUpload' method="post" enctype="multipart/form-data" action="http://localhost:3000/fileUpload">
+              <input type="file" name="uploadfile">
+              <button style='margin-top:5px;' type="submit" class="btn btn-primary">上传文件</button>
+            </form>
+            <button type="button" class="btn btn-default" ng-click="handlerStartNewFile()">新建文件</button>
+            <button type="button" class="btn btn-default" ng-click="handlerFileDelete()">删除文件</button>
+            <div  style='margin-top:27px;float:right'>
+              <label for="filedir">指定目录下文件查询：</label>
+              <input ng-model='inputValue' type="text" id="filedir" placeholder="(格式:D://XXX),不建议直接从根目录查找(如：D://)">
+              <a class='btn-find' ng-click="findAllFiles(inputValue)">查询</a>
+            </div>
+        </div> 
+        <div class='row'>
+            <table class="table">
+                <thead>
+                    <tr>
+                      <th>
+                        <span node-type="chk" class="chk">
+                            <span class="chk-ico"></span>
+                        </span>
+                      </th>
+                      <th>文件名</th>
+                      <th>文件大小</th>
+                      <th>文件操作</th>
+                      <th>文件修改时间</th>
+                     <!--  <th style='display:none;'></th> -->
+                    </tr>
+                </thead>
+                <tbody id="tablecontent">
+                   <tr ng-show="isStartCreateFile">
+                      <td>
+                        <span node-type="chk" class="chk">
+                           <span class="chk-ico"></span>
+                        </span>
+                      </td>
+                      <td><span><input ng-model="newfileName" type='text' placeholder="请输入文件名"><a ng-click="handlerCreateNewFile(newfileName,inputValue)" class='rename-btn'>OK</a></span></td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                   </tr>
+                   <tr ng-repeat="row in allFileInfos"  ng-class="{backgroundblue:row.isBackColor}">
+                        <td data-index="{{row.index}}" ng-click="handlerMouseClick(row)">
+                          <span node-type="chk" class="chk">
+                              <span class="chk-ico" ng-class="{chkicod:row.isFlag}"></span>
+                          </span>
+                        </td>
+                        <td><span ng-class="{Hide:row.isTextHidden}">{{row.filename}}</span><span ng-class="{Hide:row.isInputHidden}"><input ng-model="newfileName" type='text' value="{{row.filename}}"><a ng-click="handlerRenameFile(row,newfileName)" class='rename-btn'>OK</a></span></td>
+                        <td>{{row.filesize}}</td>
+                        <td><a href="#" role="button" class='rename' ng-click="handlerRenameClick(row)">重命名</a></td>
+                        <td>{{row.changeTime}}</td>
+                   </tr>
+                </tbody>
+            </table> 
+        </div>
+    </section>
+    <script type="text/ng-template" id="myAlert.html">
+        <div class="modal-header">
+            <h3 class="modal-title">百度FEX</h3>
+        </div>
+        <div class="modal-body">
+               <P>{{items}}</p>
+        </div>
+        <div class="modal-footer">
+                <button class="btn btn-primary" ng-click="ok()">OK</button>
+                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
